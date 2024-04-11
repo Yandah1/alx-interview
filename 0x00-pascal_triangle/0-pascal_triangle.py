@@ -23,11 +23,11 @@ def pascal_triangle(n):
 
     for i in range(n):
         # Create a row and fill first and last idx with 1
-        new_row = [0] * (i+1)
+        new_row = [0] * (i + 1)
         new_row[0] = 1
         new_row[len(new_row) - 1] = 1
 
-	# Calculate values for the remaining indices in the row
+        # Calculate values for the remaining indices in the row
         for j in range(1, i):
             if j > 0 and j < len(new_row):
                 a = pascal_triangle[i - 1][j]
