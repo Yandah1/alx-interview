@@ -3,16 +3,18 @@
 Minimum Operations
 """
 
+
 def minOperations(n):
     """
     Calculates the fewest number of operations needed to result in exactly n H
     characters in the file.
-    
+
     Args:
         n (int): The desired number of H characters.
 
     Returns:
-        int: The fewest number of operations needed. If n is impossible to achieve, return 0.
+        int: The fewest number of operations needed.
+        If n is impossible to achieve, return 0.
     """
     c = 1  # Characters in file
     cb = 0  # Clipboard contents
@@ -41,7 +43,8 @@ def minOperations(n):
         if rem % c != 0:
             c += cb
             op += 1
-        # If remaining characters can be evenly divided, copy all and then paste
+        # If remaining characters can be evenly divided,
+        # copy all and then paste
         else:
             cb = c
             c += cb
