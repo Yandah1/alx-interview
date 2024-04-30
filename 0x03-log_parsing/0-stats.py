@@ -1,38 +1,33 @@
 #!/usr/bin/python3
 """a script that reads stdin line by line and computes metrics"""
 import sys
-import re
-from collections import Counter
+from collections import defaultdict
 
-
-status_code_counts = Counter()
+cache = defaultdict(int)
 total_size = 0
-line_count = 0
 
 try:
     for line in sys.stdin:
-        line = line.strip()
-        
-        match = re.match(r'(\d+\.\d+\.\d+\.\d+) - \[(.*?)\] "GET /projects/260 HTTP/1\.1" (\d+) (\d+)', line)
-        if not match:
-            continue
-        
-        ip_address, date, status_code, file_size = match.groups()
-        file_size = int(file_size)
-        
-        total_size += file_size
-        status_code_counts[status_code] += 1
-        line_count += 1
-        
-        if line_count % 10 == 0:
-            print("Total file size:", total_size)
-            for code, count in status_code_counts.items():
-                print(f"{code}: {count}")
-            print()
-    
-except KeyboardInterrupt:
-    print("\nKeyboard Interrupt received. Exiting...")
+        line_list = line.split(" ")
+        if len(line_list) > 4:
+            code = line_list[-2]
+            size = int(line_list[-1])
+            cache[code] += 1
+            total_size += size
 
-print("Total file size:", total_size)
-for code, count in status_code_counts.items():
-    print(f"{code}: {count}")
+            if len(cache) == 10:
+                print('File size: {}'.format(total_size))
+                for key, value in sorted(cache.items()):
+                    if value != 0:
+                        print('{}: {}'.format(key, value))
+                cache.clear()
+
+except Exception as err:
+    # Handle exceptions appropriately
+    print("An error occurred:", err)
+
+finally:
+    print('File size: {}'.format(total_size))
+    for key, value in sorted(cache.items()):
+        if value != 0:
+            print('{}: {}'.format(key, value))
