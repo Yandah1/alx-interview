@@ -15,21 +15,21 @@ try:
         line = line.strip()
         if not line:
             continue
-        
+
         fields = line.split(" ")
         if len(fields) > 4:
             status_code = fields[-2]
             file_size = int(fields[-1])
-        
+
             # Increment the count for the status code
             cache[status_code] += 1
-        
+
             # Accumulate the total file size
             total_size += file_size
-        
+
             # Increment the line count
             line_count += 1
-        
+
             # Print metrics after every 10 lines
             if line_count % 10 == 0:
                 print('Total file size:', total_size)
