@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Script that reads stdin
+"""
+Script that reads stdin line by line and computes metrics:
 """
 
 
@@ -42,9 +43,6 @@ def parseLogs():
 def report(fileSize, status_counts):
     """
     Prints generated report to standard output
-    Args:
-        fileSize (int): total log size after every 10 successfully read line
-        statusCodes (dict): dictionary of status codes and counts
     """
     print("File size: {}".format(fileSize))
     for key, value in sorted(status_counts.items()):
