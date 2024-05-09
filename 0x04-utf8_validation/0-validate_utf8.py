@@ -23,7 +23,7 @@ def validUTF8(data):
                 byte_count = 1
             elif i & 240 == 224:
                 byte_count = 2
-            elif i & 248 == 224:
+            elif i & 248 == 240:
                 byte_count = 3
             else:
                 return False
