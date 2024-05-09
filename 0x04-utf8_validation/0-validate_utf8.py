@@ -13,19 +13,23 @@ def validUTF8(data):
     Return: True if data is a valid UTF-8 encoding, else False.
     """
 
-    count = 0
+    byte_count = 0
 
     for i in data:
-        if count == 0:
-            if i >> 5 == 0b110 or i >> 5 == 0b1110:
-                count = 1
-            elif i >> 4 == 0b11110:
-                count = 2
-            elif i >> 7 == 0b1:
+        if byte_count == 0:
+            if i & 128 == 0:
+                byte_count = 0
+            elif i & 224 == 192:
+                byte_count = 1
+            elif i & 240 == 224:
+                byte_count = 2
+            elif i & 248 == 224:
+                byte_count = 3
+            else:
                 return False
         else:
-            if i >> 6 != 0b10:
+            if i & 192 != 128:
                 return False
-            count -= 1
+            byte_count -= 1
 
-    return count == 0
+    return byte_count == 0
