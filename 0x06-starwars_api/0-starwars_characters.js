@@ -7,7 +7,7 @@ const endpoint = 'https://swapi-api.alx-tools.com/api/films/' + movieId;
 let characters = [];
 const names = [];
 
-function getCharacters() {
+function getCharacters () {
   return new Promise((resolve, reject) => {
     request(endpoint, async (err, res, body) => {
       if (err || res.statusCode !== 200) {
@@ -21,7 +21,7 @@ function getCharacters() {
   });
 }
 
-async function getCharNames() {
+async function getCharNames () {
   try {
     await getCharacters();
     if (characters.length > 0) {
