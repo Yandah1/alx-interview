@@ -17,18 +17,14 @@ def makeChange(coins, total):
         return 0
 
     # Initialize a table to store the minimum coins needed for each amount
-    min_coins = [sys.maxsize for _ in range(total + 1)]
+    min_coins = [sys.maxsize] * (total + 1)
     min_coins[0] = 0  # Base case: 0 coins needed to make 0 total
 
-    # Iterate through all amounts from 1 to total
-    for current_amount in range(1, total + 1):
-        # Check each coin
-        for coin in coins:
-            if coin <= current_amount:
-                remaining_amount = current_amount - coin
-                if min_coins[remaining_amount] != sys.maxsize:
-                    min_coins[current_amount] = min(
-                        min_coins[current_amount],
-                        min_coins[remaining_amount] + 1)
+    # Iterate through all coins and update the min_coins table
+    for coin in coins:
+        for amount in range(coin, total + 1):
+            if min_coins[amount - coin] != sys.maxsize:
+                min_coins[amount] = min(min_coins[amount],
+                                        min_coins[amount - coin] + 1)
 
     return -1 if min_coins[total] == sys.maxsize else min_coins[total]
