@@ -32,7 +32,7 @@ def isRoundWinner(n, x):
             if prime != -1:
                 if num % prime == 0:
                     selectedIdxs.append(idx)
-            
+
             else:
                 if isPrime(num):
                     selectedIdxs.append(idx)
