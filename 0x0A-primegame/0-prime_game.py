@@ -7,7 +7,7 @@ def isWinner(x, nums):
     winnerCounter = {'Maria': 0, 'Ben': 0}
 
     for i in range(x):
-        roundWinner = isRoundWinner(nums[i], x)
+        roundWinner = isRoundWinner(nums[i])
         if roundWinner is not None:
             winnerCounter[roundWinner] += 1
 
@@ -19,7 +19,7 @@ def isWinner(x, nums):
         return None
 
 
-def isRoundWinner(n, x):
+def isRoundWinner(n):
     '''To find round winner'''
     list = [i for i in range(1, n + 1)]
     players = ['Maria', 'Ben']
@@ -32,19 +32,15 @@ def isRoundWinner(n, x):
             if prime != -1:
                 if num % prime == 0:
                     selectedIdxs.append(idx)
-
             else:
                 if isPrime(num):
                     selectedIdxs.append(idx)
                     prime = num
         if prime == -1:
-            if currentPlayer == players[0]:
-                return players[1]
-            else:
-                return players[0]
+            return players[(i + 1) % 2]
         else:
-            for idx, val in enumerate(selectedIdxs):
-                del list[val - idx]
+            for idx in sorted(selectedIdxs, reverse=True):
+                del list[idx]
     return None
 
 
@@ -55,5 +51,5 @@ def isPrime(n):
     else:
         for i in range(3, int(n**(1/2))+1, 2):
             if n % i == 0:
-                return "Not prime"
+                return False
         return True
