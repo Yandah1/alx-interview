@@ -3,20 +3,21 @@
 Prime Game
 """
 
+
 def isWinner(x, nums):
     """
     Finds the winner after x rounds of the Prime Game.
-    
+
     Args:
     x (int): Number of rounds.
     nums (list): List of n values for each round.
-    
+
     Returns:
     str: Name of the player with the most wins or None if it's a tie.
     """
     if x < 1 or not nums:
         return None
-    
+
     maria, ben = 0, 0
 
     # Create a list of prime numbers using the Sieve of Eratosthenes
@@ -39,4 +40,3 @@ def isWinner(x, nums):
     if maria == ben:
         return None
     return 'Maria' if maria > ben else 'Ben'
-
